@@ -13,11 +13,21 @@
         <transition-group tag="ul" name="list">
           <li v-for="task in tasks" :key="task.id">
             <div class="task-item-wrapper" :class="{ completed: task.isCompleted }">
-              <vs-checkbox v-model="task.isCompleted" class="task-list-item" @click.native="requestToggleCompleted(task)">
+              <vs-checkbox
+                v-model="task.isCompleted"
+                class="task-list-item"
+                @click.native="requestToggleCompleted(task)"
+              >
                 {{task.body}}
               </vs-checkbox>
               <div class="list-item-actions">
-                <vs-button vs-type="danger-flat" @click.native="requestRemove(task)">x</vs-button>
+                <vs-button
+                  vs-type="danger-flat"
+                  @click.native="requestRemove(task)"
+                  @click="$vsNotify({title:'Task removed',text:'Lorem ipsum dolor sit amet, consectetur', color:'danger'})"
+                >
+                  X
+                </vs-button>
               </div>
             </div>
           </li>
@@ -57,6 +67,7 @@ export default {
       try {
         const { data } = await this.createTask(this.newTask)
         this.tasks.push(data)
+        this.$vsNotify({title: 'Task created', text: '추가되었습니다', color: 'primary'})
       } catch (error) {
         console.error(error)
       } finally {
@@ -74,6 +85,8 @@ export default {
     async requestToggleCompleted (task) {
       try {
         await this.toggleTaskCompleted(task)
+        const text = task.isCompleted ? '완료되었습니다' : '해제되었습니다'
+        this.$vsNotify({title: 'Task Updated', text, color: 'success'})
       } catch (error) {
         task.isCompleted = !task.isCompleted
         console.log(error)
