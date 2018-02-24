@@ -24,7 +24,7 @@ html {
 }
 #app {
   box-sizing: border-box;
-  overflow: auto;
+  overflow: hidden;
   padding: 0 1rem;
   color: #2c3e50;
 }

@@ -16,6 +16,7 @@
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
+    "vuebar": "0.0.18",
     "vuesax": "^2.0.36",
     "vuex": "^3.0.1"
   },
