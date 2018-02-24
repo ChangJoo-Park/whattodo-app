@@ -8,8 +8,12 @@ const fetchTasks = () => {
   return http.get('api/tasks')
 }
 
+const createTask = (body) => {
+  return http.post('api/tasks', { body })
+}
 export default {
   methods: {
-    fetchTasks
+    fetchTasks,
+    createTask
   }
 }
