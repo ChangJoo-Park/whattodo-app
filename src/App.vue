@@ -9,6 +9,9 @@ html, body, #app {
   width: 100%;
   height: 100%;
 }
+* {
+  box-sizing: border-box;
+}
 html {
   font-size: 100%;
   font-variant-ligatures: none;
@@ -20,6 +23,7 @@ html {
   overflow: hidden;
 }
 #app {
+  box-sizing: border-box;
   overflow: auto;
   padding: 0 1rem;
   color: #2c3e50;
