@@ -1,19 +1,27 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <main id="app">
     <router-view/>
-  </div>
+  </main>
 </template>
 
 <style>
+html, body, #app {
+  width: 100%;
+  height: 100%;
+}
+html {
+  font-size: 100%;
+  font-variant-ligatures: none;
+  text-rendering: optimizeLegibility;
+  font-smoothing: antialiased;
+  text-shadow: rgba(0,0,0,0.01) 0 0 1px;
+  position: relative;
+  background-image: linear-gradient(-20deg, #b721ff 0%, #21d4fd 100%);
+  overflow: hidden;
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  overflow: auto;
+  padding: 0 1rem;
   color: #2c3e50;
 }
 

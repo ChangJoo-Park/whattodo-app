@@ -11,9 +11,12 @@
     "e2e:open": "vue-cli-service e2e:open"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "date-fns": "^1.29.0",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
+    "vuesax": "^2.0.36",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -29,6 +32,8 @@
     "babel-jest": "^22.0.4",
     "lint-staged": "^6.0.0",
     "node-sass": "^4.7.2",
+    "postcss-import": "^11.1.0",
+    "postcss-url": "^7.3.0",
     "sass-loader": "^6.0.6",
     "vue-template-compiler": "^2.5.13"
   },
