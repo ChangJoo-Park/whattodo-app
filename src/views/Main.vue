@@ -1,6 +1,17 @@
 <template>
   <section id="main-section">
-    <aside></aside>
+    <transition name="fade">
+      <div
+        class="task-info-dim"
+        v-if="selectedTask"
+        @click="selectedTask = null"
+      />
+    </transition>
+    <transition name="slide">
+      <aside class="box task-info" v-if="selectedTask">
+        {{ selectedTask.body }}
+      </aside>
+    </transition>
     <section id="task-section">
       <vs-input
         vs-placeholder="New Task"
@@ -22,9 +33,16 @@
               </vs-checkbox>
               <div class="list-item-actions">
                 <vs-button
+                  vs-type="dark-flat"
+                  class="list-item-action"
+                  @click="openTaskDetails(task)"
+                >
+                  i
+                </vs-button>
+                <vs-button
                   vs-type="danger-flat"
-                  @click.native="requestRemove(task)"
-                  @click="$vsNotify({title:'Task removed',text:'Lorem ipsum dolor sit amet, consectetur', color:'danger'})"
+                  class="list-item-action"
+                  @click="requestRemove(task)"
                 >
                   X
                 </vs-button>
@@ -45,7 +63,8 @@ export default {
   data () {
     return {
       newTask: '',
-      tasks: []
+      tasks: [],
+      selectedTask: null
     }
   },
   async mounted () {
@@ -78,6 +97,7 @@ export default {
       try {
         await this.removeTask(task)
         this.tasks = this.tasks.filter(t => t.id !== task.id)
+        this.$vsNotify({title: 'Task removed', text: 'Lorem ipsum dolor sit amet, consectetur', color: 'danger'})
       } catch (error) {
         console.error(error)
       }
@@ -91,6 +111,9 @@ export default {
         task.isCompleted = !task.isCompleted
         console.log(error)
       }
+    },
+    openTaskDetails (task) {
+      this.selectedTask = Object.assign({}, task)
     }
   }
 }
@@ -139,7 +162,56 @@ export default {
   margin-right: 10px;
 }
 
+.list-item-action {
+  margin: 2px;
+}
+.list-item-action .text {
+  padding: 6px;
+}
+
+/* Task Info */
+.task-info {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: calc(100vh - 47px);
+  z-index: 9999;
+  margin: 17px;
+  margin-right: 0;
+}
+
+.task-info-dim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
 /* Transition */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 300ms;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.slide-enter-active, .slide-leave-active {
+  transition: all .3s ease-out;
+}
+.slide-enter, .slide-leave-to {
+  opacity: 0;
+  width: 0%;
+}
+.slide-enter-to, .slide-leave {
+  opacity: 1;
+  width: 400px;
+}
+
 .list-enter-active,
 .list-leave-active,
 .list-move {
